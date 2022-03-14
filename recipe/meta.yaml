@@ -8,6 +8,7 @@ package:
 source:
   url: http://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-{{ version }}.tar.gz
   sha256: 7656532f837af5f4cec3ff6bafe552c044dc39bf453587bd5b77450802f4aee6
+  patches: patches/windows_declspec.patch  # [win]
 
 build:
   number: 1
