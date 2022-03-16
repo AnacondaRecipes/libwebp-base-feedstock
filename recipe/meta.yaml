@@ -8,9 +8,10 @@ package:
 source:
   url: http://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-{{ version }}.tar.gz
   sha256: 7656532f837af5f4cec3ff6bafe552c044dc39bf453587bd5b77450802f4aee6
+  patches: patches/windows_declspec.patch  # [win]
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=libwebp
     - {{ pin_compatible('libwebp-base') }}
@@ -20,6 +21,9 @@ requirements:
     - libtool  # [unix]
     - {{ compiler('c') }}
     - make  # [not win]
+    - ninja # [win]
+    - cmake # [win]
+    - m2-patch # [win]
   run_constrained:
     # 1.1 is when libwebp-base was split from libwebp
     - libwebp {{ version }}
@@ -31,17 +35,17 @@ test:
     - test -f $PREFIX/include/webp/decode.h       # [not win]
     - test -f $PREFIX/include/webp/encode.h       # [not win]
     - test -f $PREFIX/include/webp/types.h        # [not win]
-    - if not exist %LIBRARY_LIB%\\libwebp.lib exit 1  # [win]
-    - if not exist %LIBRARY_LIB%\\libwebpdemux.lib exit 1  # [win]
-    - if not exist %LIBRARY_LIB%\\libwebpdecoder.lib exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\libwebp.dll exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\libwebpdemux.dll exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\libwebpdecoder.dll exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\cwebp.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\dwebp.exe exit 1  # [win]
-    - if not exist %LIBRARY_INC%\\webp\\decode.h exit 1  # [win]
-    - if not exist %LIBRARY_INC%\\webp\\encode.h exit 1  # [win]
-    - if not exist %LIBRARY_INC%\\webp\\types.h exit 1  # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\lib\\libwebp.lib exit 1            # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\lib\\libwebpdemux.lib exit 1       # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\lib\\libwebpdecoder.lib exit 1     # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\bin\\libwebp.dll exit 1            # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\bin\\libwebpdemux.dll exit 1       # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\bin\\libwebpdecoder.dll exit 1     # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\bin\\cwebp.exe exit 1              # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\bin\\dwebp.exe exit 1              # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\include\\webp\\decode.h exit 1     # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\include\\webp\\encode.h exit 1     # [win]
+    - if not exist %CONDA_PREFIX%\\Library\\include\\webp\\types.h exit 1      # [win]
 
 about:
   home: https://developers.google.com/speed/webp
