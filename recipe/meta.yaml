@@ -6,14 +6,14 @@ package:
   version: {{ version }}
 
 source:
-  url: http://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-{{ version }}.tar.gz
+  url: https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-{{ version }}.tar.gz
   sha256: 7bf5a8a28cc69bcfa8cb214f2c3095703c6b73ac5fba4d5480c205331d9494df
-  patches:
+  patches:  # [win]
     - patches/0001-match-naming-convention-used-by-nmake-also-for-windo.patch  # [win]
     - patches/0002-use-standard-location-for-cmake-config-files.patch          # [win]
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=libwebp
     - {{ pin_compatible('libwebp-base') }}
