@@ -52,7 +52,7 @@ test:
     # headers
     {% for each_header in headers %}
       - test -f $PREFIX/include/webp/{{ each_header }} || (echo "{{ each_header }} not found" && exit 1)    # [unix]
-      - if not exist %LIBRARY_INC%\webp\{{ each_header }} exit 1                                            # [win]                                       # [win]
+      - if not exist %LIBRARY_INC%\webp\{{ each_header }} exit 1                                            # [win]
     {% endfor %}
 
     # All binaries should be excluded from libwebp-base. Various binaries
