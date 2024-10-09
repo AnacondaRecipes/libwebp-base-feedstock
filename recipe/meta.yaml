@@ -10,7 +10,7 @@ source:
   sha256: 2a499607df669e40258e53d0ade8035ba4ec0175244869d1025d460562aa09b4
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=libwebp
     - {{ pin_subpackage('libwebp-base') }}
@@ -18,11 +18,8 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - cmake     # [win]
-    - libtool   # [not win]
-    - m2-patch  # [win]
-    - make      # [not win]
-    - ninja     # [win]
+    - cmake
+    - ninja
   run_constrained:
     # 1.1 is when libwebp-base was split from libwebp
     - libwebp {{ version }}
