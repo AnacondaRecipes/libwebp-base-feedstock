@@ -19,7 +19,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - cmake
-    - ninja
+    - ninja-base
   run_constrained:
     # 1.1 is when libwebp-base was split from libwebp
     - libwebp {{ version }}
