@@ -1,7 +1,7 @@
 #!/bin/bash
 set -ex
 
-cmake -G Ninja -S . -B build \
+cmake -G Ninja -S . -B build ${CMAKE_ARGS} \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=${PREFIX} \
     -DBUILD_SHARED_LIBS=ON \
