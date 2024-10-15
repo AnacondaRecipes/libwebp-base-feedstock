@@ -1,0 +1,2 @@
+extra_labels_for_os:
+  osx-arm64: [ventura]
