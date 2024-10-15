@@ -41,10 +41,11 @@ test:
       # should not be packaged in conda-forge, see also CFEP-18
       - test ! -f $PREFIX/lib/{{ each_lib }}.a                  # [unix]
 
-      # config files; unix currently doesn't have CMake, only pkgconfig
+      # config files
       - test $PREFIX/pkgconfig/{{ each_lib }}.pc                # [unix]
-      - if not exist %LIBRARY_PREFIX%\WebP\cmake\WebPConfig.cmake exit 1    # [win]
     {% endfor %}
+      - test -f ${PREFIX}/share/WebP/cmake/WebPConfig.cmake     # [unix]
+      - if not exist %LIBRARY_PREFIX%\WebP\cmake\WebPConfig.cmake exit 1    # [win]
 
     # headers
     {% for each_header in headers %}
