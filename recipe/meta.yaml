@@ -14,11 +14,6 @@ build:
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=libwebp
     - {{ pin_subpackage('libwebp-base') }}
-  missing_dso_whitelist:
-    # $BUILD_PREFIX/work/build/libwebp.7.dylib not found in packages
-    # (on Prefect only!)
-    - $RPATH/libwebp.7.dylib      # [osx]
-    - $RPATH/libsharpyuv.0.dylib  # [osx]
 
 requirements:
   build:
