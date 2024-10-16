@@ -36,14 +36,19 @@ if [[ ${target_platform} == "osx-arm64" ]] ; then
 	for lib in ${dir}/lib{sharpyuv,webpdecoder,webp,webpdemux,webpmux}.dylib; do
 	    echo "**** ${dir##*/}/${lib##*/}"
 	    otool -L $lib
+	    echo
 	    otool -l $lib | grep -A2 PATH
 	    echo
 	done
     done
 
-    if [[ -d $HOME/ifitchet ]] ; then
+    DST=$HOME/ifitchet
+    if [[ -d ${DST} ]] ; then
 	echo Copying ${BUILD_ROOT}
 	set -x
-	cp -r ${BUILD_ROOT} $HOME/ifitchet
+	cp -r ${BUILD_ROOT} ${DST}
+    else
+	echo "No ${DST}"
+	ls -l $HOME || true
     fi
 fi
