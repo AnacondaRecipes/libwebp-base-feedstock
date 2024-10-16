@@ -29,12 +29,21 @@ if [[ ${target_platform} == "osx-arm64" ]] ; then
     sw_vers
     env | sort
     echo
+    BUILD_ROOT=${SRC_DIR%/*}
+    echo BUILD_ROOT=${BUILD_ROOT}
 
     for dir in build ${PREFIX}/lib ; do
 	for lib in ${dir}/lib{sharpyuv,webpdecoder,webp,webpdemux,webpmux}.dylib; do
 	    echo "**** ${dir##*/}/${lib##*/}"
+	    otool -L $lib
 	    otool -l $lib | grep -A2 PATH
 	    echo
 	done
     done
+
+    if [[ -d $HOME/ifitchet ]] ; then
+	echo Copying ${BUILD_ROOT}
+	set -x
+	cp -r ${BUILD_ROOT} $HOME/ifitchet
+    fi
 fi
