@@ -20,3 +20,21 @@ cmake -G Ninja -S . -B build ${CMAKE_ARGS} \
 cmake --build build -j${CPU_COUNT}
 
 cmake --install build --prefix ${PREFIX}
+
+# Problems in Prefect
+if [[ ${target_platform} == "osx-arm64" ]] ; then
+    set +x
+    uname -a
+    id -a
+    sw_vers
+    env | sort
+    echo
+
+    for dir in build ${PREFIX}/lib ; do
+	for lib in ${dir}/lib{sharpyuv,webpdecoder,webp,webpdemux,webpmux}.dylib; do
+	    echo "**** ${dir##*/}/${lib##*/}"
+	    otool -l $lib | grep -A2 PATH
+	    echo
+	done
+    done
+fi
