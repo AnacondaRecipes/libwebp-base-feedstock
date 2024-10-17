@@ -10,7 +10,7 @@ source:
   sha256: 2a499607df669e40258e53d0ade8035ba4ec0175244869d1025d460562aa09b4
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=libwebp
     - {{ pin_subpackage('libwebp-base') }}
@@ -18,11 +18,8 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - cmake     # [win]
-    - libtool   # [not win]
-    - m2-patch  # [win]
-    - make      # [not win]
-    - ninja     # [win]
+    - cmake
+    - ninja-base
   run_constrained:
     # 1.1 is when libwebp-base was split from libwebp
     - libwebp {{ version }}
@@ -44,10 +41,11 @@ test:
       # should not be packaged in conda-forge, see also CFEP-18
       - test ! -f $PREFIX/lib/{{ each_lib }}.a                  # [unix]
 
-      # config files; unix currently doesn't have CMake, only pkgconfig
+      # config files
       - test $PREFIX/pkgconfig/{{ each_lib }}.pc                # [unix]
-      - if not exist %LIBRARY_PREFIX%\WebP\cmake\WebPConfig.cmake exit 1    # [win]
     {% endfor %}
+      - test -f ${PREFIX}/share/WebP/cmake/WebPConfig.cmake     # [unix]
+      - if not exist %LIBRARY_PREFIX%\WebP\cmake\WebPConfig.cmake exit 1    # [win]
 
     # headers
     {% for each_header in headers %}
