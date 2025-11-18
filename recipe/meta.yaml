@@ -1,13 +1,13 @@
-{% set version = "1.3.2" %}
-{% set major,minor,patch = version.split('.') %}
+{% set version = "1.6.0" %}
+{% set name = "libwebp" %}
 
 package:
-  name: libwebp-base
+  name: {{ name }}-base
   version: {{ version }}
 
 source:
-  url: https://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-{{ version }}.tar.gz
-  sha256: 2a499607df669e40258e53d0ade8035ba4ec0175244869d1025d460562aa09b4
+  url: https://storage.googleapis.com/downloads.webmproject.org/releases/webp/{{ name }}-{{ version }}.tar.gz
+  sha256: e4ab7009bf0629fd11982d4c2aa83964cf244cffba7347ecd39019a9e38c4564
 
 build:
   number: 1
@@ -18,6 +18,7 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
+    - {{ stdlib('c') }}
     - cmake
     - ninja-base
   run_constrained:
